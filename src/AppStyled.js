@@ -23,8 +23,9 @@ flex-direction: column;
 export const PageBody = styled.div`
 
 display: flex;
+background-color: #00989d;
 flex:1;
-background-color: #0000FF;
+background-image: url('/assets/bg.png');
 
   /* Estilos para o componente PageBody */
 `;
