@@ -6,26 +6,31 @@ import api from '../../api';
 import CategoryItem from '../../components/CategoryItem';
 import ReactTooltip from 'react-tooltip';
 import ProductItem from '../../components/ProductItem';
-
+let searchTimer = null;
 export default () => {
     const history = useHistory();
     const [headerSearch, setHeaderSearch] = useState('');
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
-
+    const [activeSearch, setActiveSearch] = useState('');
     const [activeCategory, setActiveCategory] = useState('');
-    const [activePage, setActivePage] = useState (0);
+    const [activePage, setActivePage] = useState (1);
 
     const getProducts = async () => {
-        const prods = await api.getProducts();
+        const prods = await api.getProducts(activeCategory,activePage,activeSearch);
         if (prods.error === '') {
             setProducts(prods.result.data);
             setTotalPages(prods.result.pages);
             setActivePage(prods.result.page);
         }
     }
-
+    useEffect(() => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            setActiveSearch(headerSearch);       
+            }, 2000);         
+    }, [headerSearch]);
     useEffect(() => {
         const getCategories = async () => {
             
@@ -40,8 +45,9 @@ export default () => {
     }, []);
 
     useEffect(() => {
+        setProducts([]);
         getProducts();
-    }, [activeCategory]);
+    }, [activeCategory,activePage,activeSearch]);
 
     return (
         <Container>
@@ -102,8 +108,13 @@ export default () => {
                 <ProductPaginationArea>
 
                     {Array(totalPages).fill(0).map((item, index) => (
-                        <ProductPaginationItem key={index}>
-                           {index + 1 }
+                        <ProductPaginationItem
+                            key={index}
+                            active={activePage}
+                            current={index + 1}
+                            onClick={()=>setActivePage(index+1)}
+                        >
+                            {index +1}
                         </ProductPaginationItem>
                         
                     ))}
