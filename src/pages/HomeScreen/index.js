@@ -6,6 +6,7 @@ import api from '../../api';
 import CategoryItem from '../../components/CategoryItem';
 import ReactTooltip from 'react-tooltip';
 import ProductItem from '../../components/ProductItem';
+import Modal from '../../components/Modal';
 let searchTimer = null;
 export default () => {
     const history = useHistory();
@@ -15,7 +16,8 @@ export default () => {
     const [totalPages, setTotalPages] = useState(0);
     const [activeSearch, setActiveSearch] = useState('');
     const [activeCategory, setActiveCategory] = useState('');
-    const [activePage, setActivePage] = useState (1);
+    const [activePage, setActivePage] = useState(1);
+    const [modalStatus, setModalStatus] = useState(false);
 
     const getProducts = async () => {
         const prods = await api.getProducts(activeCategory,activePage,activeSearch);
@@ -121,6 +123,11 @@ export default () => {
 
                 </ProductPaginationArea>
             }
+
+            <Modal status={modalStatus}>
+
+                Conteudo do Modal
+            </Modal>
             
         </Container>
     );
