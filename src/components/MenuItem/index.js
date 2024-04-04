@@ -1,22 +1,25 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import {LinkArea,LinkIcon } from './styled';
+import { LinkArea, LinkIcon } from './styled';
 
-export default ({ icon, link }) => {
-
+const CustomLink = ({ icon, link }) => {
     const history = useHistory();
     const location = useLocation();
 
-    let isActive = location.pathname == link;
+    // Verifica se a rota atual corresponde à rota do link
+    const isActive = location.pathname === link;
 
+    // Função para lidar com o clique no link
     const handleLinkClick = (e) => {
         e.preventDefault();
-        history.push(link);
-    }
+        history.push(link); // Altera a rota ao clicar no link
+    };
+
     return (
-        <LinkArea  active={isActive}  href={link} onClick={handleLinkClick}>
-            <LinkIcon src={icon} />
-           
+        <LinkArea active={isActive} href={link} onClick={handleLinkClick}>
+            <LinkIcon src={icon} alt="" /> {/* Adiciona um alt vazio para fins de acessibilidade */}
         </LinkArea>
-    )
-}
+    );
+};
+
+export default CustomLink;
