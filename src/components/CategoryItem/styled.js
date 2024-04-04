@@ -10,7 +10,8 @@ justify-content: center;
 align-items: center;
 border-radius: 20px;
 margin-right: 10px;
-
+cursor: pointer;
+transition: all ease .3s;
 `;
 
 

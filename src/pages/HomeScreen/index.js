@@ -31,18 +31,23 @@ export default () => {
         fetchCategories();
     }, []);
 
+    useEffect(() => {
+        
+    }, [activeCategory]);
+
     return (
         <Container>
             <Header search={headerSearch} onSearch={setHeaderSearch} />
             {categories.length > 0 && (
                 <CategoryArea>
-                    <span>Selecione uma categoria</span>
+                    <span>Selecione uma categoria </span>
                     <CategoryList>
                         {/* Usando uma chave única para o item "Todas as categorias" */}
                         <CategoryItem
                             
                             data={{ id: '', title: 'Todas as categorias', image: '/assets/food-and-restaurant.png' }}
                             activeCategory={activeCategory}
+                            setActiveCategory ={setActiveCategory}
                             
                         />
                         {categories.map((item, index) => (
@@ -51,7 +56,7 @@ export default () => {
                                 key={index}
                                 data={item}
                                 activeCategory={activeCategory}
-                            
+                                 setActiveCategory ={setActiveCategory}
                             
                             />
                         ))}
