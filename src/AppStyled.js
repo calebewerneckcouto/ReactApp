@@ -26,6 +26,7 @@ display: flex;
 background-color: #00989d;
 flex:1;
 background-image: url('/assets/bg.png');
+overflow-y:auto;
 
   /* Estilos para o componente PageBody */
 `;

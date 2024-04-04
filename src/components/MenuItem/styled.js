@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LinkArea = styled.a`
+export const LinkArea = styled.div`
 display: flex;
 justify-content:center;
 align-items: center;

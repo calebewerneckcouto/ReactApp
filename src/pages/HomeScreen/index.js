@@ -1,38 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, CategoryArea, CategoryList } from './styled';
+import { Container, CategoryArea, CategoryList,ProductList,ProductArea} from './styled';
 import Header from '../../components/Header';
 import api from '../../api';
 import CategoryItem from '../../components/CategoryItem';
+import ReactTooltip from 'react-tooltip';
+import ProductItem from '../../components/ProductItem';
 
 export default () => {
     const history = useHistory();
     const [headerSearch, setHeaderSearch] = useState('');
     const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
 
     const [activeCategory, setActiveCategory] = useState('');
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const categoriesResponse = await api.getCategories();
+    const getProducts = async () => {
+        const prods = await api.getProducts();
+        if (prods.error === '') {
+            setProducts(prods.result.data);
+        }
+    }
 
-                if (categoriesResponse.error === '') {
-                    setCategories(categoriesResponse.result);
-                } else {
-                    console.error('Erro ao obter categorias:', categoriesResponse.error);
-                    // Exibir feedback visual para o usuário (por exemplo, uma mensagem de erro)
+    useEffect(() => {
+        const getCategories = async () => {
+            
+                const cat = await api.getCategories();
+
+                if (cat.error === '') {
+                    setCategories(cat.result);
                 }
-            } catch (error) {
-                console.error('Erro ao obter categorias:', error);
-                // Exibir feedback visual para o usuário (por exemplo, uma mensagem de erro)
-            }
-        };
-        fetchCategories();
+                ReactTooltip.rebuild();
+            };
+        getCategories();
     }, []);
 
     useEffect(() => {
-        
+        getProducts();
     }, [activeCategory]);
 
     return (
@@ -45,7 +49,7 @@ export default () => {
                         {/* Usando uma chave única para o item "Todas as categorias" */}
                         <CategoryItem
                             
-                            data={{ id: '', title: 'Todas as categorias', image: '/assets/food-and-restaurant.png' }}
+                            data={{ id: '', name: 'Todas as categorias', image: '/assets/food-and-restaurant.png' }}
                             activeCategory={activeCategory}
                             setActiveCategory ={setActiveCategory}
                             
@@ -65,6 +69,30 @@ export default () => {
                     </CategoryList>
                 </CategoryArea>
             )}
+
+            {products.length > 0 &&
+                
+
+            <ProductArea>
+                    <ProductList>
+                        
+                        {products.map((item, index) => (
+                            
+                            <ProductItem
+                                key={index}
+                                data={item}
+                            />
+
+                        ) )}
+
+
+
+                </ProductList>
+
+
+                </ProductArea>
+            }
+            
         </Container>
     );
 };

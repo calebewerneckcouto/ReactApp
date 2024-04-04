@@ -10,9 +10,12 @@ export default ({ data, activeCategory, setActiveCategory }) => {
     }
     
     return (
-        <Container active={activeCategory}
+        <Container
+            active={activeCategory}
             id={data.id}
             onClick={handleCategoryClick}
+            data-tip={data.name}
+            data-for="tip-top"
         >
             <CategoryImage src={data.image}/>
         </Container>

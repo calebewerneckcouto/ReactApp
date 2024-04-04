@@ -4,7 +4,7 @@ export const Container = styled.div`
 
 width: 80px;
 height: 80px;
-background-color: ${props=>props.active == props.id ? '#FFF': '#AAE09A'} ;
+background-color: ${props=>props.active === props.id ? '#FFF': '#AAE09A'} ;
 display: flex;
 justify-content: center;
 align-items: center;
