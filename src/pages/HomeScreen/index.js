@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { Container, Titulo } from './styled';
-
+import Header from '../../components/Header';
 export default () => {
     const history = useHistory();
 
@@ -11,8 +11,9 @@ export default () => {
 
     return (
         <Container>
-            <Titulo>Homepage</Titulo>
-            <button onClick={handleButtonClick}>Ir para Tela 2</button>
+            <Header>
+                
+            </Header>
         </Container>
     );
 }
