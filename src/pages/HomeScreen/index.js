@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, CategoryArea, CategoryList,ProductList,ProductArea} from './styled';
+import { Container, CategoryArea, CategoryList,ProductList,ProductArea,ProductPaginationArea,ProductPaginationItem} from './styled';
 import Header from '../../components/Header';
 import api from '../../api';
 import CategoryItem from '../../components/CategoryItem';
@@ -12,13 +12,17 @@ export default () => {
     const [headerSearch, setHeaderSearch] = useState('');
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
+    const [totalPages, setTotalPages] = useState(0);
 
     const [activeCategory, setActiveCategory] = useState('');
+    const [activePage, setActivePage] = useState (0);
 
     const getProducts = async () => {
         const prods = await api.getProducts();
         if (prods.error === '') {
             setProducts(prods.result.data);
+            setTotalPages(prods.result.pages);
+            setActivePage(prods.result.page);
         }
     }
 
@@ -91,6 +95,20 @@ export default () => {
 
 
                 </ProductArea>
+            }
+
+            {totalPages > 0 &&
+                
+                <ProductPaginationArea>
+
+                    {Array(totalPages).fill(0).map((item, index) => (
+                        <ProductPaginationItem key={index}>
+                           {index + 1 }
+                        </ProductPaginationItem>
+                        
+                    ))}
+
+                </ProductPaginationArea>
             }
             
         </Container>
