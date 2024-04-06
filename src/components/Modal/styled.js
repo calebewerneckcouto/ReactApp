@@ -23,7 +23,7 @@ export const ModalBody = styled.div`
 background-color:#FFF;
 border-radius:20px;
 box-shadow: 0px 0px 50px #000;
-max-width: 100vW;
+max-width: 100vw;
 max-height: 95vh;
 overflow: auto;
 

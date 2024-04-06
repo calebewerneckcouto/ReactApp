@@ -6,8 +6,18 @@ import {
     ProductPhoto,
     ProductInfoArea,
     ProductDetails,
-    ProductQuantityArea
+    ProductQuantityArea,
+    ProductName,
+    ProductIngredients,
+    ProductButton,
+    ProductQuantity,
+    ProductQtImage,
+    ProductQtText,
+    ProductPrice
+
 } from './styled';
+
+
 
 
 
@@ -21,18 +31,31 @@ export default ({data}) => {
                 <ProductPhoto src={data.image} />
                 <ProductInfoArea>
                     <ProductDetails>
-                        {data.name}
-                    </ProductDetails>
+                        
+                   
+
+                    <ProductName>{data.name}</ProductName>
+                        <ProductIngredients>{data.ingredients}</ProductIngredients>
+                         </ProductDetails>
 
                     <ProductQuantityArea>
-                            8
+                        <ProductQuantity>
+                            <ProductQtImage src="/assets/minus.png" />
+                              <ProductQtText>9</ProductQtText>
+                             <ProductQtImage  src="/assets/plus.png"/>
+                            
+                        </ProductQuantity>
+                        <ProductPrice>
+                             R$ {data.price}
+                        </ProductPrice>
                     </ProductQuantityArea>
                 </ProductInfoArea>
 
             </ProductArea>
 
             <ProductButtons>
-
+                <ProductButton small={true}>Cancelar</ProductButton>
+                 <ProductButton>Adicionar ao Carrinho</ProductButton>
             </ProductButtons>
 
         </Container>
