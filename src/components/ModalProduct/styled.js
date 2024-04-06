@@ -24,6 +24,7 @@ font-weight:bold;
 padding: ${props=>props.small ? '5px 10px': '10px 20px'};
 margin-left:10px;
 border-radius: 5px;
+cursor:pointer;
 
 `;
 
@@ -95,6 +96,7 @@ export const ProductQtImage = styled.img`
   height:auto;
    margin-left:10px;
      margin-right:10px;
+     cursor:pointer;
 `;
 
 
