@@ -7,6 +7,7 @@ import CategoryItem from '../../components/CategoryItem';
 import ReactTooltip from 'react-tooltip';
 import ProductItem from '../../components/ProductItem';
 import Modal from '../../components/Modal';
+import ModalProduct from '../../components/ModalProduct';
 let searchTimer = null;
 export default () => {
     const history = useHistory();
@@ -18,6 +19,7 @@ export default () => {
     const [activeCategory, setActiveCategory] = useState('');
     const [activePage, setActivePage] = useState(1);
     const [modalStatus, setModalStatus] = useState(false);
+    const [modalData, setModalData] = useState({});
 
     const getProducts = async () => {
         const prods = await api.getProducts(activeCategory,activePage,activeSearch);
@@ -49,7 +51,12 @@ export default () => {
     useEffect(() => {
         setProducts([]);
         getProducts();
-    }, [activeCategory,activePage,activeSearch]);
+    }, [activeCategory, activePage, activeSearch]);
+    
+    const handleProductClick = (data) => {
+        setModalData(data);
+        setModalStatus(true);
+    }
 
     return (
         <Container>
@@ -93,6 +100,7 @@ export default () => {
                             <ProductItem
                                 key={index}
                                 data={item}
+                                onClick={handleProductClick}
                             />
 
                         ) )}
@@ -124,9 +132,14 @@ export default () => {
                 </ProductPaginationArea>
             }
 
-            <Modal status={modalStatus}>
+            <Modal status={modalStatus} setStatus={setModalStatus}>
+                
+                <ModalProduct data={modalData}/> 
 
-                Conteudo do Modal
+                      
+               
+
+             
             </Modal>
             
         </Container>
