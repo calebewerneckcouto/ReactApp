@@ -65,5 +65,23 @@ export const ProductPrice = styled.div`
    font-size:13px;
 `;
 export const ProductQuantityArea = styled.div`
+display:flex;
+align-items:center;
 
+`;
+
+
+export const ProductQtIcon = styled.img`
+
+height:auto;
+width:13px;
+cursor:pointer;
+
+`;
+
+
+export const ProductQtText = styled.div`
+     font-size:13px;
+     font-weight:bold;
+     margin: 0px 5px;
 `;
